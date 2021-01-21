@@ -9,17 +9,26 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 
 public class AdminActivity extends AppCompatActivity {
 
-    int day, month, year;
+    int day, month, YYYY, hour,min;
     EditText date, time;
+    Button post;
+    DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +36,21 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
         date = findViewById(R.id.eT_date_aa);
         time = findViewById(R.id.eT_time_aa);
+        post = findViewById(R.id.btn_post_aa);
+        FirebaseApp.initializeApp(this);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String s = String.valueOf(date.getText());
+                String s1 = String.valueOf(time.getText());
+
+                databaseReference.child("admin").child("1").child("time").setValue(s1);
+                databaseReference.child("admin").child("1").child("date").setValue(s);
+            }
+        });
+
 
         date.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -36,8 +60,35 @@ public class AdminActivity extends AppCompatActivity {
                // Toast.makeText(AdminActivity.this, "clicked", Toast.LENGTH_SHORT).show();
             }
         });
-
+time.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        showTimePicker();
     }
+});
+    }
+
+    private void showTimePicker(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(AdminActivity.this);
+        View view = LayoutInflater.from(this).inflate(R.layout.timepickerlayout, null);
+        builder.setView(view);
+        TimePicker tp = view.findViewById(R.id.tp_tpl);
+        tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                hour=hourOfDay;
+                min=minute;
+            }
+        });
+        builder.setPositiveButton("Set Name", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                time.setText(hour+":" + min);
+            }
+        });
+        builder.create().show();
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void showDatePicker() {
@@ -51,13 +102,13 @@ public class AdminActivity extends AppCompatActivity {
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 day = dayOfMonth;
                 month = monthOfYear+1;
+                YYYY= year;
 
             }
         });
         builder.setPositiveButton("Set Date", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                date.setText(day + "/" + month);
-
+                date.setText(day + "/" + month+ "/"+ YYYY);
             }
         });
 
