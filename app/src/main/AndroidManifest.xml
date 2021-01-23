@@ -12,6 +12,7 @@
         android:theme="@style/Theme.PrachiAttendance">
         <activity android:name=".AdminActivity"></activity>
         <activity android:name=".Dashboard" />
+        <activity android:name=".Setup_Acc"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

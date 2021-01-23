@@ -30,7 +30,7 @@ FirebaseAuth firebaseAuth;
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, AdminActivity.class));
-                finish();
+
             }
         });
 

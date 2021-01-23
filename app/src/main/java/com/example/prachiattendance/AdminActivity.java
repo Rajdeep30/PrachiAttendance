@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ public class AdminActivity extends AppCompatActivity {
 
     int day, month, YYYY, hour,min;
     EditText date, time, msg, subject;
+    TextView setup;
     Button post;
     DatabaseReference databaseReference;
 
@@ -39,9 +42,17 @@ public class AdminActivity extends AppCompatActivity {
         post = findViewById(R.id.btn_post_aa);
         msg = findViewById(R.id.eT_message_aa);
         subject = findViewById(R.id.eT_subject_aa);
+        setup = findViewById(R.id.set_acc);
 
         FirebaseApp.initializeApp(this);
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        setup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminActivity.this,Setup_Acc.class));
+            }
+        });
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
