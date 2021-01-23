@@ -25,7 +25,7 @@ import java.util.Calendar;
 public class AdminActivity extends AppCompatActivity {
 
     int day, month, YYYY, hour,min;
-    EditText date, time;
+    EditText date, time, msg, subject;
     Button post;
     DatabaseReference databaseReference;
 
@@ -37,6 +37,9 @@ public class AdminActivity extends AppCompatActivity {
         date = findViewById(R.id.eT_date_aa);
         time = findViewById(R.id.eT_time_aa);
         post = findViewById(R.id.btn_post_aa);
+        msg = findViewById(R.id.eT_message_aa);
+        subject = findViewById(R.id.eT_subject_aa);
+
         FirebaseApp.initializeApp(this);
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -45,9 +48,13 @@ public class AdminActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String s = String.valueOf(date.getText());
                 String s1 = String.valueOf(time.getText());
+                String s2 = String.valueOf(msg.getText());
+                String s3 = String.valueOf(subject.getText());
 
                 databaseReference.child("admin").child("1").child("time").setValue(s1);
                 databaseReference.child("admin").child("1").child("date").setValue(s);
+                databaseReference.child("admin").child("1").child("Message").setValue(s2);
+                databaseReference.child("admin").child("1").child("Subject").setValue(s3);
             }
         });
 
@@ -80,7 +87,7 @@ time.setOnClickListener(new View.OnClickListener() {
                 min=minute;
             }
         });
-        builder.setPositiveButton("Set Name", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Set Time", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 time.setText(hour+":" + min);
