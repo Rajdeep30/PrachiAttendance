@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -25,7 +27,8 @@ import java.util.Calendar;
 public class AdminActivity extends AppCompatActivity {
 
     int day, month, YYYY, hour,min;
-    EditText date, time;
+    EditText date, time, msg, subject;
+    TextView setup;
     Button post;
     DatabaseReference databaseReference;
 
@@ -37,17 +40,32 @@ public class AdminActivity extends AppCompatActivity {
         date = findViewById(R.id.eT_date_aa);
         time = findViewById(R.id.eT_time_aa);
         post = findViewById(R.id.btn_post_aa);
+        msg = findViewById(R.id.eT_message_aa);
+        subject = findViewById(R.id.eT_subject_aa);
+        setup = findViewById(R.id.set_acc);
+
         FirebaseApp.initializeApp(this);
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        setup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminActivity.this,Setup_Acc.class));
+            }
+        });
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String s = String.valueOf(date.getText());
                 String s1 = String.valueOf(time.getText());
+                String s2 = String.valueOf(msg.getText());
+                String s3 = String.valueOf(subject.getText());
 
                 databaseReference.child("admin").child("1").child("time").setValue(s1);
                 databaseReference.child("admin").child("1").child("date").setValue(s);
+                databaseReference.child("admin").child("1").child("Message").setValue(s2);
+                databaseReference.child("admin").child("1").child("Subject").setValue(s3);
             }
         });
 
@@ -80,7 +98,7 @@ time.setOnClickListener(new View.OnClickListener() {
                 min=minute;
             }
         });
-        builder.setPositiveButton("Set Name", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Set Time", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 time.setText(hour+":" + min);

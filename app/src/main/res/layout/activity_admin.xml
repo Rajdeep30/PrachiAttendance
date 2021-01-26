@@ -37,7 +37,7 @@
                 android:singleLine="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
+
 
                 android:hint="Message"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -52,7 +52,6 @@
                 android:singleLine="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
 
                 android:hint="Subject"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -94,16 +93,41 @@
 
                 android:hint="Time"/>
         </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/btn_post_aa"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="POST">
 
-<Button
-    android:id="@+id/btn_post_aa"
-    android:layout_gravity="center"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textStyle="bold"
-    android:text="POST">
+        </Button>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/setup1"
+            android:layout_margin="10dp"
+            android:layout_marginRight="-10dp"
 
-</Button>
+            ></ImageView>
+
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:id="@+id/set_acc"
+            android:text="Setup new account for a student"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="-10dp"></TextView>
+        </LinearLayout>
+
+
 
     </LinearLayout>
 </LinearLayout>
