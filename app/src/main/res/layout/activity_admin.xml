@@ -109,7 +109,7 @@
         <ImageView
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:src="@drawable/setup1"
+           android:src="@drawable/iconfinder_woman"
             android:layout_margin="10dp"
             android:layout_marginRight="-10dp"
 
