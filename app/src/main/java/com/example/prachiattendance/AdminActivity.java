@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -57,15 +58,27 @@ public class AdminActivity extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s = String.valueOf(date.getText());
-                String s1 = String.valueOf(time.getText());
-                String s2 = String.valueOf(msg.getText());
-                String s3 = String.valueOf(subject.getText());
+                if(TextUtils.isEmpty(time.getText().toString()) || TextUtils.isEmpty(date.getText().toString())|| TextUtils.isEmpty(subject.getText().toString())
+                || TextUtils.isEmpty(msg.getText().toString())){
+                    Toast.makeText(AdminActivity.this, "No Empty Text Allowed", Toast.LENGTH_SHORT).show();
+                    time.requestFocus();
+                }
+                else {
+                    String s = String.valueOf(date.getText());
+                    String s1 = String.valueOf(time.getText());
+                    String s2 = String.valueOf(msg.getText());
+                    String s3 = String.valueOf(subject.getText());
 
-                databaseReference.child("admin").child("1").child("time").setValue(s1);
-                databaseReference.child("admin").child("1").child("date").setValue(s);
-                databaseReference.child("admin").child("1").child("Message").setValue(s2);
-                databaseReference.child("admin").child("1").child("Subject").setValue(s3);
+                    databaseReference.child("admin").child("1").child("time").setValue(s1);
+                    databaseReference.child("admin").child("1").child("date").setValue(s);
+                    databaseReference.child("admin").child("1").child("Message").setValue(s2);
+                    databaseReference.child("admin").child("1").child("Subject").setValue(s3);
+                    Toast.makeText(AdminActivity.this, "Data Successfully sent to Database", Toast.LENGTH_SHORT).show();
+                    date.getText().clear();
+                    msg.getText().clear();
+                    time.getText().clear();
+                    subject.getText().clear();
+                }
             }
         });
 

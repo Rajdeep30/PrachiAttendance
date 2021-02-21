@@ -4,7 +4,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="20dp">
+    android:layout_margin="20dp"
+    android:background="@drawable/setup_bg">
+    <ImageView
+        android:layout_margin="@dimen/margin_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/iconfinder_woman">
+
+    </ImageView>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_8dp"
         android:hint="Enter Password"
+        android:inputType="textPassword"
         android:id="@+id/pass1"></EditText>
     <Button
         android:layout_margin="15dp"
